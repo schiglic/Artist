@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Artist.Models.FavoriteArtistModel>
+
+<h2>Улюблені Художники</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ім'я</th>
+            <th>Рух у мистецтві</th>
+            <th>Дата додавання</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var favoriteArtist in Model)
+        {
+            <tr>
+                <td>@favoriteArtist.Artist.ArtistName</td>
+                <td>@favoriteArtist.Artist.ArtMovement</td>
+                <td>@favoriteArtist.AddedDate.ToShortDateString()</td>
+                <td>
+                    <a asp-action="RemoveFromFavorites" asp-route-id="@favoriteArtist.FavoriteArtistID" class="btn btn-danger">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

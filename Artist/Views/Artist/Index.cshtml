@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Artist.Models.ArtistModel>
+@{
+    ViewData["Title"] = "Artist Home";
+}
+
+<h1>Головне меню</h1>
+<p>Натисніть на посилання, щоб дізнатися більше:</p>
+<ul>
+    <li><a href="/Artist/Biography">Біографія</a></li>
+    <li><a href="/Artist/Gallery">Галерея</a></li>
+    <li><a href="/Artist/LifeHistory">Історія життя</a></li>
+    <li><a href="/FavoriteArtists/Index">Улюблені художники</a></li>
+</ul>
+
+<h2>Список Художників</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ім'я</th>
+            <th>Рух у мистецтві</th>
+            <th>Країна</th>
+            <th>Дата народження</th>
+            <th>Біографія</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var artist in Model)
+        {
+            <tr>
+                <td>@artist.ArtistName</td>
+                <td>@artist.ArtMovement</td>
+                <td>@artist.Country</td>
+                <td>@artist.BirthDate.ToShortDateString()</td>
+                <td>@artist.Bio</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@artist.ArtistID" class="btn btn-danger">Видалити</a>
+                    <!-- Кнопка для додавання в улюблені -->
+                    <a asp-action="AddToFavorites" asp-route-artistId="@artist.ArtistID" class="btn btn-success">Додати в улюблені</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Додати Нового Художника</h2>
+<form asp-action="Add" method="post">
+    <div class="form-group">
+        <label>Ім'я:</label>
+        <input type="text" name="artistName" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>Рух у мистецтві:</label>
+        <input type="text" name="artMovement" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Країна:</label>
+        <input type="text" name="country" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Дата народження:</label>
+        <input type="date" name="birthDate" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>Біографія:</label>
+        <textarea name="bio" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Додати</button>
+</form>
