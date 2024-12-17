@@ -20,6 +20,24 @@ namespace Artist.Controllers
             return View(artists);
         }
 
+        // Сторінка Біографія
+        public IActionResult Biography()
+        {
+            return View();
+        }
+
+        // Сторінка Галерея
+        public IActionResult Gallery()
+        {
+            return View();
+        }
+
+        // Сторінка Історія життя
+        public IActionResult LifeHistory()
+        {
+            return View();
+        }
+
         // Додавання нового художника
         [HttpPost]
         public IActionResult Add(string artistName, string artMovement, string country, DateTime birthDate, string bio)

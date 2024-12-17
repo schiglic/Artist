@@ -1,9 +1,15 @@
 using Artist.Models;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity; // Додано для Identity
 using Artist;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Додаємо сервіси для Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ArtistDbContext>()
+    .AddDefaultTokenProviders(); // Додаємо провайдери токенів для реєстрації та скидання пароля
 
 // Додаємо сервіси до контейнера.
 builder.Services.AddControllersWithViews();
@@ -29,6 +35,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Додано для Identity: UseAuthentication перед UseAuthorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 // Налаштування маршрутизації для контролерів
